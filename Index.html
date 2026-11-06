@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Priyanshu Technology - Learn Coding</title>
+
+<meta name="description" content="Learn HTML, CSS, JavaScript, Python, Web Development and Technology in Hindi with Priyanshu Technology.">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #071426;
+  color: white;
+}
+
+header {
+  background: linear-gradient(120deg,#005bea,#00c6fb);
+  padding: 25px 12px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 27px;
+}
+
+nav {
+  background: #10243e;
+  padding: 15px;
+  text-align: center;
+}
+
+nav button {
+  background: none;
+  border: none;
+  color: white;
+  padding: 10px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.hero {
+  text-align: center;
+  padding: 35px 15px;
+}
+
+.hero h2 {
+  color: #00c6ff;
+}
+
+input {
+  width: 90%;
+  max-width: 450px;
+  padding: 14px;
+  border: none;
+  border-radius: 9px;
+  font-size: 16px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+  gap: 18px;
+  padding: 20px;
+}
+
+.card {
+  background: #142b45;
+  border: 1px solid #245078;
+  border-radius: 14px;
+  padding: 22px;
+}
+
+.card h3 {
+  color: #00c6ff;
+}
+
+button.action {
+  background: #008cff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button.action:hover {
+  background: #00bfff;
+}
+
+#lesson {
+  display: none;
+  padding: 22px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.lesson-box {
+  background: #10243e;
+  border-radius: 12px;
+  padding: 22px;
+  margin: 18px 0;
+  line-height: 1.8;
+}
+
+.lesson-box h3 {
+  color: #00c6ff;
+}
+
+pre {
+  background: #020b16;
+  color: #65e6ff;
+  padding: 16px;
+  border-radius: 9px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+footer {
+  background: #020b16;
+  text-align: center;
+  padding: 25px;
+  margin-top: 30px;
+}
+
+#noResult {
+  display: none;
+  text-align: center;
+  padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🚀 PRIYANSHU TECHNOLOGY</h1>
+  <p>Learn Coding | Learn Technology | Build Your Future</p>
+</header>
+
+<nav>
+  <button onclick="goHome()">🏠 Home</button>
+  <button onclick="showAll()">📚 All Topics</button>
+  <button onclick="showAbout()">ℹ️ About</button>
+</nav>
+
+<section id="home">
+
+<div class="hero">
+  <h2>Welcome to Priyanshu Technology</h2>
+  <p>अपनी Coding Journey आज ही शुरू करो!</p>
+
+  <input
+    id="search"
+    placeholder="🔍 Search HTML, Python, CSS..."
+    oninput="searchTopics()"
+  >
+</div>
+
+<h2 style="text-align:center;color:#00c6ff">
+  📚 Explore Learning Topics
+</h2>
+
+<div class="container" id="topicList"></div>
+
+<p id="noResult">कोई Topic नहीं मिला।</p>
+
+</section>
+
+<section id="lesson">
+  <button class="action" onclick="goHome()">⬅ Back to Home</button>
+  <div id="lessonContent"></div>
+</section>
+
+<section id="about" style="display:none;padding:30px;text-align:center">
+  <h2>About Priyanshu Technology</h2>
+  <p>Priyanshu Technology एक Educational Website है।</p>
+  <p>यहाँ Coding, Computer और Technology हिंदी में सीख सकते हैं।</p>
+  <p>Founder: Priyanshu</p>
+  <button class="action" onclick="goHome()">Home</button>
+</section>
+
+<footer>
+  <h3>PRIYANSHU TECHNOLOGY</h3>
+  <p>Learn Today, Build Tomorrow 🚀</p>
+  <p>© 2026 Priyanshu Technology</p>
+</footer>
+
+<script>
+
+const topics = [
+
+{
+name:"HTML",
+icon:"🌐",
+description:"वेबसाइट बनाना सीखें",
+lessons:[
+["HTML क्या है?",
+"HTML का पूरा नाम HyperText Markup Language है। यह वेबसाइट का ढाँचा तैयार करती है।"],
+["पहला HTML प्रोग्राम",
+"इस कोड से अपनी पहली वेबसाइट बनाओ:",
+'<pre>&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;My Website&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n&lt;h1&gt;Hello World&lt;/h1&gt;\n&lt;p&gt;My First Website&lt;/p&gt;\n&lt;/body&gt;\n&lt;/html&gt;</pre>'],
+["Headings और Paragraph",
+"HTML में h1 से h6 तक Headings होती हैं। p टैग से Paragraph लिखते हैं।"],
+["Images और Links",
+'Image के लिए img टैग और Link के लिए a टैग उपयोग होता है। उदाहरण:<pre>&lt;a href="https://example.com"&gt;Visit Website&lt;/a&gt;</pre>'],
+["Forms",
+"HTML Forms से उपयोगकर्ता से नाम, ईमेल और अन्य जानकारी ली जा सकती है।"]
+]
+},
+
+{
+name:"CSS",
+icon:"🎨",
+description:"वेबसाइट डिजाइन करना सीखें",
+lessons:[
+["CSS क्या है?",
+"CSS का उपयोग वेबसाइट के रंग, आकार, दूरी और डिजाइन को बदलने के लिए किया जाता है।"],
+["पहला CSS उदाहरण",
+'<pre>body {\n background: black;\n color: white;\n font-family: Arial;\n}\n\nh1 {\n color: cyan;\n}</pre>'],
+["Colors और Background",
+"CSS में background-color और color से रंग बदलते हैं।"],
+["Flexbox",
+"Flexbox से वेबसाइट के Elements को आसानी से व्यवस्थित किया जाता है।"],
+["Responsive Design",
+"Media Queries से वेबसाइट मोबाइल और कंप्यूटर पर सही दिखाई देती है।"]
+]
+},
+
+{
+name:"JavaScript",
+icon:"⚡",
+description:"Website में Features जोड़ें",
+lessons:[
+["JavaScript क्या है?",
+"JavaScript वेबसाइट में Interaction और Dynamic Features जोड़ती है।"],
+["पहला प्रोग्राम",
+'<pre>console.log("Hello World");</pre>'],
+["Variables",
+'<pre>let name = "Priyanshu";\nlet age = 18;\nconsole.log(name);</pre>'],
+["Functions",
+'<pre>function greet() {\n alert("Welcome!");\n}\ngreet();</pre>'],
+["Events",
+"Button Click, Keyboard और अन्य घटनाओं पर JavaScript से काम कराया जा सकता है।"]
+]
+},
+
+{
+name:"Python",
+icon:"🐍",
+description:"Programming शुरू करें",
+lessons:[
+["Python क्या है?",
+"Python एक लोकप्रिय Programming Language है। इसका उपयोग Software, Automation और Data Science में होता है।"],
+["पहला प्रोग्राम",
+'<pre>print("Hello World")</pre>'],
+["Variables",
+'<pre>name = "Priyanshu"\nage = 18\nprint(name)\nprint(age)</pre>'],
+["Conditions",
+'<pre>age = 18\nif age >= 18:\n print("Adult")\nelse:\n print("Under 18")</pre>'],
+["Loops",
+'<pre>for i in range(1, 6):\n print(i)</pre>'],
+["Functions",
+'<pre>def hello():\n print("Hello Friends")\n\nhello()</pre>']
+]
+},
+
+{
+name:"Cyber Security",
+icon:"🔐",
+description:"Online Safety सीखें",
+lessons:[
+["Cyber Security क्या है?",
+"Cyber Security का उद्देश्य कंप्यूटर, नेटवर्क और डिजिटल जानकारी को सुरक्षित रखना है।"],
+["Strong Password",
+"मजबूत और अलग-अलग पासवर्ड रखो। Password किसी से साझा मत करो।"],
+["Phishing",
+"Phishing नकली संदेश या वेबसाइट के माध्यम से जानकारी चुराने की कोशिश है।"],
+["Network Security",
+"Firewall, सुरक्षित Wi-Fi और अपडेट से नेटवर्क को सुरक्षित रखा जा सकता है।"],
+["Ethical Hacking",
+"Ethical Hacking में केवल अनुमति वाले सिस्टम की सुरक्षा जाँची जाती है।"]
+]
+},
+
+{
+name:"Artificial Intelligence",
+icon:"🤖",
+description:"AI की दुनिया समझें",
+lessons:[
+["AI क्या है?",
+"Artificial Intelligence ऐसी तकनीक है जिससे कंप्यूटर डेटा के आधार पर कई उपयोगी काम कर सकते हैं।"],
+["Machine Learning",
+"Machine Learning में कंप्यूटर उदाहरणों और डेटा से पैटर्न सीखता है।"],
+["Neural Networks",
+"Neural Networks डेटा में जटिल पैटर्न पहचानने के लिए उपयोग किए जाते हैं।"],
+["AI के उपयोग",
+"AI का उपयोग शिक्षा, भाषा, विज्ञान और कई अन्य क्षेत्रों में होता है।"]
+]
+},
+
+{
+name:"Web Development",
+icon:"💻",
+description:"पूरी Website बनाना सीखें",
+lessons:[
+["Web Development क्या है?",
+"Web Development में वेबसाइट बनाना, डिजाइन करना और उन्हें इंटरनेट पर उपलब्ध कराना शामिल है।"],
+["Frontend",
+"Frontend वेबसाइट का वह हिस्सा है जिसे उपयोगकर्ता देखता और इस्तेमाल करता है।"],
+["Backend",
+"Backend वेबसाइट के Server, Logic और Data को संभालता है।"],
+["Database",
+"Database में वेबसाइट की जानकारी व्यवस्थित तरीके से रखी जाती है।"],
+["Website Hosting",
+"Hosting से वेबसाइट इंटरनेट पर उपलब्ध होती है।"]
+]
+},
+
+{
+name:"Android Development",
+icon:"📱",
+description:"Mobile Apps की जानकारी",
+lessons:[
+["Android Development",
+"Android Development में Android मोबाइल के लिए Applications बनाए जाते हैं।"],
+["Programming Languages",
+"Kotlin और Java Android Development में उपयोग की जाती हैं।"],
+["App Design",
+"एक अच्छे ऐप में आसान Navigation और स्पष्ट डिजाइन होना चाहिए।"],
+["Testing",
+"ऐप को अलग-अलग परिस्थितियों में जाँचकर उसकी गलतियाँ ठीक करनी चाहिए।"]
+]
+}
+
+];
+
+function renderTopics(list) {
+  const area = document.getElementById("topicList");
+  area.innerHTML = "";
+
+  list.forEach(topic => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const heading = document.createElement("h3");
+    heading.textContent = topic.icon + " " + topic.name;
+
+    const desc = document.createElement("p");
+    desc.textContent = topic.description;
+
+    const btn = document.createElement("button");
+    btn.className = "action";
+    btn.textContent = "Explore More →";
+    btn.onclick = () => openTopic(topic.name);
+
+    card.append(heading, desc, btn);
+    area.appendChild(card);
+  });
+}
+
+function openTopic(name) {
+  const topic = topics.find(t => t.name === name);
+  if (!topic) return;
+
+  document.getElementById("home").style.display = "none";
+  document.getElementById("about").style.display = "none";
+  document.getElementById("lesson").style.display = "block";
+
+  let html = `
+    <h1 style="color:#00c6ff">${topic.icon} ${topic.name}</h1>
+    <p>${topic.description}</p>
+  `;
+
+  topic.lessons.forEach((lesson,index) => {
+    html += `
+      <div class="lesson-box">
+        <h3>Lesson ${index+1}: ${lesson[0]}</h3>
+        <p>${lesson[1]}</p>
+      </div>
+    `;
+  });
+
+  document.getElementById("lessonContent").innerHTML = html;
+  window.scrollTo(0,0);
+}
+
+function goHome() {
+  document.getElementById("home").style.display = "block";
+  document.getElementById("lesson").style.display = "none";
+  document.getElementById("about").style.display = "none";
+  window.scrollTo(0,0);
+}
+
+function showAll() {
+  goHome();
+  document.getElementById("search").value = "";
+  renderTopics(topics);
+  document.getElementById("noResult").style.display = "none";
+}
+
+function showAbout() {
+  document.getElementById("home").style.display = "none";
+  document.getElementById("lesson").style.display = "none";
+  document.getElementById("about").style.display = "block";
+  window.scrollTo(0,0);
+}
+
+function searchTopics() {
+  const value = document.getElementById("search").value.toLowerCase();
+
+  const filtered = topics.filter(t =>
+    (t.name + " " + t.description).toLowerCase().includes(value)
+  );
+
+  renderTopics(filtered);
+  document.getElementById("noResult").style.display =
+    filtered.length ? "none" : "block";
+}
+
+renderTopics(topics);
+
+</script>
+
+</body>
+</html>
